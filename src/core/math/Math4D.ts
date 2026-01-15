@@ -6,7 +6,6 @@ import { Vector4 } from '../types';
 export class Math4D {
     /**
      * 生成旋转矩阵 (绕 XW 平面)
-     * 在四维空间中，旋转是绕着一个“平面”而不是一个“轴”进行的
      */
     static getRotationXW(theta: number): number[][] {
         const c = Math.cos(theta);
