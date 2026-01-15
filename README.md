@@ -1,6 +1,6 @@
 # Hyper-Viewer 4D
 
-基于 TypeScript 开发的虚拟四维体展示工具。
+基于 TypeScript 开发的虚拟四维体展示工具。[demo](https://lenzhzh.github.io/hyper-viewer-4D)
 
 ## 核心理念
 通过数学变换将四维空间物体投影至三维空间，此时的四维体可以当作静止的三维体进行处理，并利用 Three.js 进行渲染。
