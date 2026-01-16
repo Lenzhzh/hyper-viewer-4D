@@ -44,7 +44,7 @@ export class SceneManager {
         this.scene.add(pointLight);
 
         // 6. 添加网格辅助线
-        const gridHelper = new THREE.GridHelper(10, 10, 0x444444, 0x6e6e6e);
+        const gridHelper = new THREE.GridHelper(10, 10, 0x5e5e5e, 0x6e6e6e);
         this.scene.add(gridHelper);
 
         const axesHelper = new THREE.AxesHelper(5);
