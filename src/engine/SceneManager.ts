@@ -14,7 +14,7 @@ export class SceneManager {
     constructor(container: HTMLElement) {
         // 1. 初始化场景
         this.scene = new THREE.Scene();
-        this.scene.background = new THREE.Color(0x050505);
+        this.scene.background = new THREE.Color(0x3f3f3f); 
 
         // 2. 初始化相机
         this.camera = new THREE.PerspectiveCamera(
@@ -44,7 +44,7 @@ export class SceneManager {
         this.scene.add(pointLight);
 
         // 6. 添加网格辅助线
-        const gridHelper = new THREE.GridHelper(10, 10, 0x444444, 0x222222);
+        const gridHelper = new THREE.GridHelper(10, 10, 0x444444, 0x6e6e6e);
         this.scene.add(gridHelper);
 
         const axesHelper = new THREE.AxesHelper(5);
