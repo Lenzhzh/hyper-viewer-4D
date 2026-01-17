@@ -5,7 +5,7 @@ import { HyperObject } from '../types';
  * 包含 16 个顶点，32 条边
  */
 export const Tesseract: HyperObject = {
-  name: "Tesseract",
+  name: '超正方体Tesseract',
   vertices: [
     { x: -1, y: -1, z: -1, w: -1 }, { x: 1, y: -1, z: -1, w: -1 },
     { x: 1, y: 1, z: -1, w: -1 }, { x: -1, y: 1, z: -1, w: -1 },
@@ -30,3 +30,28 @@ export const Tesseract: HyperObject = {
     { start: 4, end: 12 }, { start: 5, end: 13 }, { start: 6, end: 14 }, { start: 7, end: 15 }
   ]
 };
+
+/**
+ * 五胞体 (Pentachoron)
+ * 包含 5 个顶点，10 条边
+ * 这是 4D 空间中的单纯形 (Simplex)
+ */
+const S5 = 1 / Math.sqrt(5);
+export const Pentachoron: HyperObject = {
+  name: '五胞体Pentachoron',
+  vertices: [
+    { x: 1, y: 1, z: 1, w: -S5 },
+    { x: 1, y: -1, z: -1, w: -S5 },
+    { x: -1, y: 1, z: -1, w: -S5 },
+    { x: -1, y: -1, z: 1, w: -S5 },
+    { x: 0, y: 0, z: 0, w: 4 * S5 }
+  ],
+  edges: [
+    { start: 0, end: 1 }, { start: 0, end: 2 }, { start: 0, end: 3 }, { start: 0, end: 4 },
+    { start: 1, end: 2 }, { start: 1, end: 3 }, { start: 1, end: 4 },
+    { start: 2, end: 3 }, { start: 2, end: 4 },
+    { start: 3, end: 4 }
+  ]
+};
+
+export const hyper_objects = [Tesseract, Pentachoron];

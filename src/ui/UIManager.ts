@@ -2,6 +2,7 @@ import GUI from 'lil-gui';
 import { HyperMesh } from '../engine/HyperMesh';
 import * as THREE from 'three';
 import { SceneManager } from '../engine/SceneManager';
+import * as models from '../core/models/models';
 
 export class UIManager {
     private gui: GUI;
@@ -12,6 +13,7 @@ export class UIManager {
     private mouse: THREE.Vector2;
     private tooltip: HTMLElement;
     private lastMouseEvent: MouseEvent | null = null;
+    private modelName = models.hyper_objects.map(m => m.name);
 
     constructor(hyperMesh: HyperMesh, sceneManager: SceneManager) {
         this.hyperMesh = hyperMesh;
@@ -23,6 +25,7 @@ export class UIManager {
         
         // 初始配置
         this.config = {
+            model: this.modelName[0],
             autoRotate: true,
             // XW 平面
             angleXW: 0,
@@ -50,7 +53,17 @@ export class UIManager {
     }
 
     private init() {
-        // 1. 4D 空间旋转控制
+        // 模型选择
+        this.gui.add(this.config, 'model', this.modelName).name('当前物体').onChange((name: string) => {
+            const modelData = models.hyper_objects.find(m => m.name === name);
+            if (modelData) {
+                this.hyperMesh.setModel(modelData);
+            } else {
+                console.warn(`模型 ${name} 未找到！`);
+            }
+        });
+
+        // 4D 空间旋转控制
         const rotationFolder = this.gui.addFolder('4D 空间旋转');
         rotationFolder.add(this.config, 'autoRotate').name('开启自动旋转');
 
@@ -75,7 +88,7 @@ export class UIManager {
         });
         zwFolder.add(this.config, 'speedZW', 0, 0.05).name('旋转速度');
 
-        // 2. 3D 空间变换
+        // 3D 空间变换
         const transformFolder = this.gui.addFolder('3D 空间变换');
         transformFolder.add(this.config, 'rotation3DX', -Math.PI, Math.PI).name('3D 旋转 X').onChange((v: number) => {
             this.hyperMesh.rotation3D.x = v;
@@ -87,13 +100,13 @@ export class UIManager {
             this.hyperMesh.rotation3D.z = v;
         });
 
-        // 3. 投影设置
+        // 投影设置
         const projectionFolder = this.gui.addFolder('投影设置');
         projectionFolder.add(this.config, 'projectionDist', 1.1, 5.0).name('W 轴偏置').onChange((val: number) => {
             this.hyperMesh.projectionDistance = val;
         });
 
-        // 4. 视觉效果
+        // 视觉效果
         const visualFolder = this.gui.addFolder('视觉效果');
         visualFolder.add(this.config, 'pointSize', 0.01, 0.5).name('点大小').onChange((val: number) => {
             const points = this.hyperMesh.getObject().children.find(c => c instanceof THREE.Points) as THREE.Points;
@@ -117,6 +130,7 @@ export class UIManager {
         });
     }
 
+    // 顶点信息显示
     private updateTooltip() {
         if (!this.lastMouseEvent) return;
         const event = this.lastMouseEvent;

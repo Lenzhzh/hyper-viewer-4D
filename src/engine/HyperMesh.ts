@@ -93,6 +93,14 @@ export class HyperMesh {
         return this.group;
     }
 
+    /**
+     * 更新模型数据
+     */
+    public setModel(data: HyperObject) {
+        this.sourceData = data;
+        this.update();
+    }
+
     /*
      * 获取指定顶点信息。
      */
