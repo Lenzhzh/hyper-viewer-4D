@@ -25,7 +25,9 @@
 
 - 目前使用的模型是标准的超立方体，适用于 4D 图形学和可视化应用。
 
-- 替换`src/main.ts`的 Tesseract 模型即可加载不同的模型。
+- ~~替换`src/main.ts`的 Tesseract 模型即可加载不同的模型。~~
+
+- 在新的版本中，允许直接通过右侧 ui 栏进行模型切换。同时，定义新的模型只需要在 `src/main.ts` 中写好即可。
 
 ## 技术栈
 - TypeScript
@@ -38,6 +40,7 @@
 
 在本地构建项目并使用静态服务器预览生产版本：
 ```bash
+npm run install
 npm run build
 npx serve dist
 ```

@@ -1,10 +1,19 @@
 import { HyperObject } from '../types';
 
+const _registry: HyperObject[] = [];
+/**
+ * 自动注册函数：在定义模型时将其添加到内部列表中
+ */
+function register<T extends HyperObject>(model: T): T {
+  _registry.push(model);
+  return model;
+}
+
 /**
  * 超正方体
  * 包含 16 个顶点，32 条边
  */
-export const Tesseract: HyperObject = {
+export const Tesseract = register({
   name: '超正方体Tesseract',
   vertices: [
     { x: -1, y: -1, z: -1, w: -1 }, { x: 1, y: -1, z: -1, w: -1 },
@@ -29,7 +38,7 @@ export const Tesseract: HyperObject = {
     { start: 0, end: 8 }, { start: 1, end: 9 }, { start: 2, end: 10 }, { start: 3, end: 11 },
     { start: 4, end: 12 }, { start: 5, end: 13 }, { start: 6, end: 14 }, { start: 7, end: 15 }
   ]
-};
+});
 
 /**
  * 五胞体 (Pentachoron)
@@ -37,7 +46,7 @@ export const Tesseract: HyperObject = {
  * 这是 4D 空间中的单纯形 (Simplex)
  */
 const S5 = 1 / Math.sqrt(5);
-export const Pentachoron: HyperObject = {
+export const Pentachoron = register({
   name: '五胞体Pentachoron',
   vertices: [
     { x: 1, y: 1, z: 1, w: -S5 },
@@ -52,6 +61,7 @@ export const Pentachoron: HyperObject = {
     { start: 2, end: 3 }, { start: 2, end: 4 },
     { start: 3, end: 4 }
   ]
-};
+});
 
-export const hyper_objects = [Tesseract, Pentachoron];
+// 导出自动生成的列表，后续新增模型只需套用 register() 即可
+export const hyper_objects = _registry;
